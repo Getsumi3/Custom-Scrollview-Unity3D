@@ -45,7 +45,7 @@ public class SnapScrolling : MonoBehaviour {
 		itemArray = new GameObject[itemCount];
 		itemPos = new Vector2[itemCount];
 		itemScale = new Vector2[itemCount];
-		curItemColor = itemPref.GetComponent <Image> ().color;
+		curItemColor = itemPref.transform.GetChild (0).GetComponent <Image> ().color;
 
 		//fill the array with items
 		for (int i = 0; i < itemCount; i++) {
@@ -73,10 +73,10 @@ public class SnapScrolling : MonoBehaviour {
 			} 
 
 			//set Item image opacity
-			Color tmpColor = itemArray [i].GetComponent <Image> ().color;
+			Color tmpColor = itemArray [i].transform.GetChild (0).GetComponent <Image> ().color;
 			tmpColor.a = itemOpacity;
-			itemArray [curItemID].GetComponent <Image> ().color = curItemColor;
-			itemArray [i].GetComponent <Image> ().color = tmpColor;
+			itemArray [curItemID].transform.GetChild (0).GetComponent <Image> ().color = curItemColor;
+			itemArray [i].transform.GetChild (0).GetComponent <Image> ().color = tmpColor;
 
 			float scale = Mathf.Clamp (1 / (dist / itemOffset) * scaleOffset, minItemScale, maxItemScale);
 			itemScale [i].x = Mathf.SmoothStep (itemArray [i].transform.localScale.x, scale, scaleSpeed * Time.deltaTime);
